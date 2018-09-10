@@ -5,6 +5,12 @@
 #include <string>
 
 template <class Data>
+class LinkedList;
+
+template <class Data>
+std::ostream& operator<<(std::ostream &os, const LinkedList<Data>& list);
+
+template <class Data>
 class Node
 {
 private:
@@ -13,8 +19,8 @@ private:
 	virtual ~Node() {}
 
 private:
-	template <class ListData>
-	friend class LinkedList;
+	friend class LinkedList<Data>;
+	friend std::ostream& operator<<<>(std::ostream &os, const LinkedList<Data>& list);
 	
 	Data m_data;
 	Node *m_next = nullptr;
@@ -42,18 +48,7 @@ public:
 	bool removeAt(int64_t index);
 	bool remove(Data data);
 
-	friend std::ostream& operator<<(std::ostream &os, const LinkedList& list)
-	{
-		Node<Data> *iterator = list.m_head;
-
-		while (iterator != nullptr)
-		{
-			os << iterator->m_data << ' ';
-			iterator = iterator->m_next;
-		}
-
-		return os;
-	}
+	friend std::ostream& operator<<<>(std::ostream &os, const LinkedList<Data>& list);
 
 private:
 	Data findDataAscending(int64_t index) const;
@@ -317,6 +312,20 @@ bool LinkedList<Data>::remove(Data data)
 	}
 
 	return false;
+}
+
+template <class Data>
+std::ostream& operator<<(std::ostream &os, const LinkedList<Data>& list)
+{
+		Node<Data> *iterator = list.m_head;
+
+		while (iterator != nullptr)
+		{
+			os << iterator->m_data << ' ';
+			iterator = iterator->m_next;
+		}
+
+		return os;
 }
 
 #endif
