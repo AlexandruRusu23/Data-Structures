@@ -1,7 +1,9 @@
 #include <iostream>
-#include <string>
 
+#include "DetectPlatform.h"
 #include "LinkedList/LinkedList.h"
+
+using namespace DataStructures;
 
 int main()
 {
@@ -40,6 +42,9 @@ int main()
 		std::cout << myIntegerList.size() << std::endl;
 		std::cout << myIntegerList << std::endl;
 	}
+
+	if (Platform::GetPlatformName() == "windows")
+		system("pause");
 
 	return 0;
 }
