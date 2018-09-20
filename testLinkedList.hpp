@@ -1,12 +1,13 @@
 #include <iostream>
 
-#include "DetectPlatform.h"
-#include "LinkedList/LinkedList.h"
+#include "_LinkedList/LinkedList.h"
 
 using namespace DataStructures;
 
-int main()
+void testLinkedList()
 {
+	std::cout << "[START] LinkedList test" << std::endl << std::endl;
+
 	LinkedList<int> myIntegerList;
 	LinkedList<double> myDoubleList;
 	myIntegerList.append(10);
@@ -43,8 +44,5 @@ int main()
 		std::cout << myIntegerList << std::endl;
 	}
 
-	if (Platform::GetPlatformName() == "windows")
-		system("pause");
-
-	return 0;
+	std::cout << "[END] LinkedList test" << std::endl << std::endl;
 }

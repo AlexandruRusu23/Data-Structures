@@ -13,19 +13,19 @@ namespace DataStructures
 	std::ostream& operator<<(std::ostream &os, const LinkedList<Data>& list);
 
 	template <class Data>
-	class Node
+	class ListNode
 	{
 	private:
-		Node() = delete;
-		Node(Data data) : m_data(data) {}
-		virtual ~Node() {}
+		ListNode() = delete;
+		ListNode(Data data) : m_data(data) {}
+		virtual ~ListNode() {}
 
 		friend class LinkedList<Data>;
 		friend std::ostream& operator<<<>(std::ostream &os, const LinkedList<Data>& list);
 
 		Data m_data;
-		Node *m_next = nullptr;
-		Node *m_prev = nullptr;
+		ListNode *m_next = nullptr;
+		ListNode *m_prev = nullptr;
 	};
 
 	template <class Data>
@@ -33,7 +33,7 @@ namespace DataStructures
 	{
 	public:
 		LinkedList() : m_size(0) {}
-		virtual ~LinkedList() {}
+		virtual ~LinkedList() { removeAll(); }
 
 		uint64_t size() const { return m_size; }
 		bool contains(Data data) const;
@@ -55,15 +55,15 @@ namespace DataStructures
 		Data findDataAscending(int64_t index) const;
 		Data findDataDescending(int64_t index) const;
 
-		Node<Data> *m_head = nullptr;
-		Node<Data> *m_tail = nullptr;
+		ListNode<Data> *m_head = nullptr;
+		ListNode<Data> *m_tail = nullptr;
 		uint64_t m_size;
 	};
 
 	template <class Data>
 	inline bool LinkedList<Data>::contains(Data data) const
 	{
-		Node<Data> *iterator = m_head;
+		ListNode<Data> *iterator = m_head;
 
 		while (iterator != nullptr)
 		{
@@ -79,7 +79,7 @@ namespace DataStructures
 	template <class Data>
 	Data LinkedList<Data>::findDataAscending(int64_t index) const
 	{
-		Node<Data> *iterator = m_head;
+		ListNode<Data> *iterator = m_head;
 		while (iterator != nullptr)
 		{
 			if (index <= 0)
@@ -95,7 +95,7 @@ namespace DataStructures
 	template <class Data>
 	Data LinkedList<Data>::findDataDescending(int64_t index) const
 	{
-		Node<Data> *iterator = m_tail;
+		ListNode<Data> *iterator = m_tail;
 		index = size() - 1 - index;
 		while (iterator != nullptr)
 		{
@@ -124,8 +124,8 @@ namespace DataStructures
 	template <class Data>
 	inline int64_t LinkedList<Data>::indexOf(Data data) const
 	{
-		Node<Data> *ascIterator = m_head;
-		Node<Data> *descIterator = m_tail;
+		ListNode<Data> *ascIterator = m_head;
+		ListNode<Data> *descIterator = m_tail;
 		int64_t ascCounter = 0;
 		int64_t descCounter = size() - 1;
 
@@ -173,10 +173,10 @@ namespace DataStructures
 			return;
 		}
 
-		Node<Data> *newNode = new Node<Data>(data);
-		newNode->m_next = m_head;
-		m_head->m_prev = newNode;
-		m_head = newNode;
+		ListNode<Data> *newListNode = new ListNode<Data>(data);
+		newListNode->m_next = m_head;
+		m_head->m_prev = newListNode;
+		m_head = newListNode;
 	}
 
 	template <class Data>
@@ -184,23 +184,23 @@ namespace DataStructures
 	{
 		if (m_head == nullptr)
 		{
-			m_head = new Node<Data>(data);
+			m_head = new ListNode<Data>(data);
 			m_tail = m_head;
 			m_size++;
 			return;
 		}
 
-		Node<Data> *newNode = new Node<Data>(data);
-		newNode->m_prev = m_tail;
-		m_tail->m_next = newNode;
-		m_tail = newNode;
+		ListNode<Data> *newListNode = new ListNode<Data>(data);
+		newListNode->m_prev = m_tail;
+		m_tail->m_next = newListNode;
+		m_tail = newListNode;
 		m_size++;
 	}
 
 	template <class Data>
 	void LinkedList<Data>::append(const LinkedList<Data>& list)
 	{
-		Node<Data> *iterator = list.m_head;
+		ListNode<Data> *iterator = list.m_head;
 
 		while (iterator != nullptr)
 		{
@@ -212,17 +212,17 @@ namespace DataStructures
 	template <class Data>
 	void LinkedList<Data>::appendAfter(Data afterData, Data data)
 	{
-		Node<Data> *iterator = m_head;
+		ListNode<Data> *iterator = m_head;
 		while (iterator != nullptr)
 		{
 			if (iterator->m_data == afterData)
 			{
-				Node<Data> *newNode = new Node<Data>(data);
-				newNode->m_next = iterator->m_next;
-				newNode->m_prev = iterator;
-				iterator->m_next = newNode;
+				ListNode<Data> *newListNode = new ListNode<Data>(data);
+				newListNode->m_next = iterator->m_next;
+				newListNode->m_prev = iterator;
+				iterator->m_next = newListNode;
 				if (iterator->m_next != nullptr)
-					iterator->m_next->m_prev = newNode;
+					iterator->m_next->m_prev = newListNode;
 				return;
 			}
 			iterator = iterator->m_next;
@@ -234,7 +234,7 @@ namespace DataStructures
 	template <class Data>
 	void LinkedList<Data>::removeAll()
 	{
-		Node<Data> *iterator = m_head;
+		ListNode<Data> *iterator = m_head;
 
 		while (iterator != nullptr)
 		{
@@ -254,7 +254,7 @@ namespace DataStructures
 
 		if (index <= 0)
 		{
-			Node<Data> *iterator = m_head;
+			ListNode<Data> *iterator = m_head;
 			m_head = iterator->m_next;
 			delete iterator;
 			m_size--;
@@ -263,7 +263,7 @@ namespace DataStructures
 		else if (static_cast<uint64_t>(index) > size())
 			return false;
 
-		Node<Data> *iterator = m_head->m_next;
+		ListNode<Data> *iterator = m_head->m_next;
 		int64_t counter = 1;
 
 		while (iterator != nullptr)
@@ -291,14 +291,14 @@ namespace DataStructures
 
 		if (m_head->m_data == data)
 		{
-			Node<Data> *head = m_head;
+			ListNode<Data> *head = m_head;
 			m_head = m_head->m_next;
 			delete head;
 			m_size--;
 			return true;
 		}
 
-		Node<Data> *iterator = m_head->m_next;
+		ListNode<Data> *iterator = m_head->m_next;
 		while (iterator != nullptr)
 		{
 			if (iterator->m_data == data)
@@ -318,7 +318,7 @@ namespace DataStructures
 	template <class Data>
 	std::ostream& operator<<(std::ostream &os, const LinkedList<Data>& list)
 	{
-		Node<Data> *iterator = list.m_head;
+		ListNode<Data> *iterator = list.m_head;
 
 		while (iterator != nullptr)
 		{
