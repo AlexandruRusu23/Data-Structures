@@ -19,6 +19,7 @@ namespace DataStructures
         friend class BinaryTree<Data>;
         
         Data m_data;
+        TreeNode *m_parent = nullptr;
         TreeNode *m_left = nullptr;
         TreeNode *m_right = nullptr;
     };
@@ -27,11 +28,12 @@ namespace DataStructures
     class BinaryTree
     {
     public:
-        BinaryTree() : m_size(0) {}
-        virtual ~BinaryTree() { Clear(); }
+        BinaryTree();
+        virtual ~BinaryTree();
 
         void Insert(Data data);
         void Clear();
+        uint64_t Size();
 
     private:
         void Insert(Data data, TreeNode<Data> *node);
@@ -40,6 +42,24 @@ namespace DataStructures
         TreeNode<Data> *m_root = nullptr;
         uint64_t m_size;
     };
+
+    template <class Data>
+    BinaryTree<Data>::BinaryTree()
+        : m_size(0)
+    {
+    }
+
+    template <class Data>
+    BinaryTree<Data>::~BinaryTree()
+    {
+        Clear();
+    }
+
+    template <class Data>
+    uint64_t BinaryTree<Data>::Size()
+    {
+        return m_size;
+    }
 
     template <class Data>
     void BinaryTree<Data>::Insert(Data data)
@@ -75,6 +95,7 @@ namespace DataStructures
             else
             {
                 node->m_left = new TreeNode<Data>(data);
+                node->m_left->m_parent = node;
                 m_size++;
             }
         }
@@ -85,6 +106,7 @@ namespace DataStructures
             else
             {
                 node->m_right = new TreeNode<Data>(data);
+                node->m_right->m_parent = node;
                 m_size++;
             }
         }
