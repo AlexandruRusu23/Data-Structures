@@ -46,3 +46,4 @@ void testLinkedList()
 
 	std::cout << "[END] LinkedList test" << std::endl << std::endl;
 }
+

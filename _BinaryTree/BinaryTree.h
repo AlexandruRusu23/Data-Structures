@@ -2,6 +2,7 @@
 #define BINARY_TREE_H
 
 #include <cstdint>
+#include <vector>
 
 namespace DataStructures
 {
@@ -31,13 +32,22 @@ namespace DataStructures
         BinaryTree();
         virtual ~BinaryTree();
 
+        uint64_t Size();
+
         void Insert(Data data);
         void Clear();
-        uint64_t Size();
+
+        const std::vector<Data> PreorderTraversal();
+        const std::vector<Data> InorderTraversal();
+        const std::vector<Data> PostorderTraversal();
 
     private:
         void Insert(Data data, TreeNode<Data> *node);
         void Clear(TreeNode<Data> *node);
+
+        void Preorder(TreeNode<Data> *node, std::vector<Data>& output);
+        void Inorder(TreeNode<Data> *node, std::vector<Data>& output);
+        void Postorder(TreeNode<Data> *node, std::vector<Data>& output);
 
         TreeNode<Data> *m_root = nullptr;
         uint64_t m_size;
@@ -86,6 +96,30 @@ namespace DataStructures
     }
 
     template <class Data>
+    const std::vector<Data> BinaryTree<Data>::PreorderTraversal()
+    {
+        std::vector<Data> output;
+        Preorder(m_root, output);
+        return output;
+    }
+    
+    template <class Data>
+    const std::vector<Data> BinaryTree<Data>::InorderTraversal()
+    {
+        std::vector<Data> output;
+        Inorder(m_root, output);
+        return output;
+    }
+
+    template <class Data>
+    const std::vector<Data> BinaryTree<Data>::PostorderTraversal()
+    {
+        std::vector<Data> output;
+        Postorder(m_root, output);
+        return output;
+    }
+
+    template <class Data>
     void BinaryTree<Data>::Insert(Data data, TreeNode<Data> *node)
     {
         if (data < node->m_data)
@@ -123,6 +157,34 @@ namespace DataStructures
         std::cout << node->m_data << std::endl;
         delete node;
     }
+
+    template <class Data>
+    void BinaryTree<Data>::Preorder(TreeNode<Data> *node, std::vector<Data>& output)
+    {
+        if (node == nullptr) return;
+        output.push_back(node->m_data);
+        Preorder(node->m_left, output);
+        Preorder(node->m_right, output);
+    }
+
+    template <class Data>
+    void BinaryTree<Data>::Inorder(TreeNode<Data> *node, std::vector<Data>& output)
+    {
+        if (node == nullptr) return;
+        Inorder(node->m_left, output);
+        output.push_back(node->m_data);
+        Inorder(node->m_right, output);
+    }
+
+    template <class Data>
+    void BinaryTree<Data>::Postorder(TreeNode<Data> *node, std::vector<Data>& output)
+    {
+        if (node == nullptr) return;
+        Postorder(node->m_left, output);
+        Postorder(node->m_right, output);
+        output.push_back(node->m_data);
+    }
 }
 
 #endif
+

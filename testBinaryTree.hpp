@@ -19,9 +19,33 @@ void testBinaryTree()
     intBinaryTree.Insert(5);
     intBinaryTree.Insert(12);
     intBinaryTree.Insert(9);
+   
+    auto preorder = intBinaryTree.PreorderTraversal();
+    std::cout << "Preorder : ";
+    for (auto iter : preorder)
+    {
+        std::cout << iter << ' ';
+    }
+    std::cout << std::endl;
+    auto inorder = intBinaryTree.InorderTraversal();
+    std::cout << "Inorder : ";
+    for (auto iter : inorder)
+    {
+        std::cout << iter << ' ';
+    }
+    std::cout << std::endl;
+    auto postorder = intBinaryTree.PostorderTraversal();
+    std::cout << "Postorder : ";
+    for (auto iter : postorder)
+    {
+        std::cout << iter << ' ';
+    }
+    std::cout << std::endl;
+
     std::cout << "Size: " << intBinaryTree.Size() << std::endl;
     intBinaryTree.Clear();
     std::cout << "Size: " << intBinaryTree.Size() << std::endl;
 
     std::cout << "[END] BinaryTree test" << std::endl << std::endl;
 }
+
