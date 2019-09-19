@@ -1,15 +1,15 @@
 #include <iostream>
 
-#include "_LinkedList/LinkedList.h"
+#include "_List/List.hpp"
 
 using namespace DataStructures;
 
-void testLinkedList()
+void testList()
 {
-	std::cout << "[START] LinkedList test" << std::endl << std::endl;
+	std::cout << "[START] List test" << std::endl << std::endl;
 
-	LinkedList<int> myIntegerList;
-	LinkedList<double> myDoubleList;
+	List<int> myIntegerList;
+	List<double> myDoubleList;
 	myIntegerList.append(10);
 	myIntegerList.append(20);
 	myIntegerList.append(30);
@@ -44,6 +44,6 @@ void testLinkedList()
 		std::cout << myIntegerList << std::endl;
 	}
 
-	std::cout << "[END] LinkedList test" << std::endl << std::endl;
+	std::cout << "[END] List test" << std::endl << std::endl;
 }
 

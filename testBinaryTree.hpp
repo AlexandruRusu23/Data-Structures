@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "_BinaryTree/BinaryTree.h"
+#include "_BinaryTree/BinaryTree.hpp"
 
 using namespace DataStructures;
 
