@@ -1,3 +1,6 @@
+#ifndef TEST_LIST_H
+#define TEST_LIST_H
+
 #include <iostream>
 
 #include "_List/List.hpp"
@@ -44,6 +47,8 @@ void testList()
 		std::cout << myIntegerList << std::endl;
 	}
 
-	std::cout << "[END] List test" << std::endl << std::endl;
+	std::cout << std::endl << "[END] List test" << std::endl << std::endl;
 }
+
+#endif // TEST_LIST_H
 

@@ -186,5 +186,5 @@ namespace DataStructures
     }
 }
 
-#endif
+#endif // BINARY_TREE_H
 

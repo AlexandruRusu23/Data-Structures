@@ -1,15 +1,14 @@
 #include "DetectPlatform.h"
 
 #include "testList.hpp"
+#include "testSimpleList.hpp"
 #include "testBinaryTree.hpp"
 
 int main()
 {
-    testList();
-    testBinaryTree();
-
-	if (Platform::GetPlatformName() == "windows")
-		system("pause");
+    //testList();
+    testSimpleList();
+    //testBinaryTree();
 
     return 0;
 }

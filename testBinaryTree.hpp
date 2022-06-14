@@ -1,3 +1,6 @@
+#ifndef TEST_BINARY_TREE_H
+#define TEST_BINARY_TREE_H
+
 #include <iostream>
 
 #include "_BinaryTree/BinaryTree.hpp"
@@ -46,6 +49,8 @@ void testBinaryTree()
     intBinaryTree.Clear();
     std::cout << "Size: " << intBinaryTree.Size() << std::endl;
 
-    std::cout << "[END] BinaryTree test" << std::endl << std::endl;
+    std::cout << std::endl << "[END] BinaryTree test" << std::endl << std::endl;
 }
+
+#endif // TEST_BINARY_TREE_H
 
