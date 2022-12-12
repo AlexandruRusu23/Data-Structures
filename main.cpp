@@ -1,9 +1,9 @@
-#include "DetectPlatform.h"
+#include "Utils/DetectPlatform.h"
 
-//#include "testList.hpp"
-//#include "testSimpleList.hpp"
-//#include "testBinaryTree.hpp"
-#include "testAVLTree.hpp"
+#include "Tests/testList.hpp"
+#include "Tests/testSimpleList.hpp"
+#include "Tests/testBinaryTree.hpp"
+#include "Tests/testAVLTree.hpp"
 
 int main()
 {
