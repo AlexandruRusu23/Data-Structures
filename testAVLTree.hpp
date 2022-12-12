@@ -5,7 +5,7 @@
 
 #include "_AVLTree/AVLTree.hpp"
 
-using namespace DataStuctures;
+using namespace DataStructures;
 
 void testAVLTree()
 {
@@ -19,8 +19,6 @@ void testAVLTree()
     solution.insert(50);
 
     solution.print();
-
-    return 0;
 }
 
 #endif // AVL_TREE_H
